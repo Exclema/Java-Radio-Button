@@ -1,0 +1,94 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class PetDisplayApp extends JFrame {
+    private JLabel petLabel;
+
+    public PetDisplayApp() {
+        setTitle("Pet Display App");
+        setSize(300, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        // Create radio buttons
+        JRadioButton birdButton = new JRadioButton("Bird");
+        JRadioButton catButton = new JRadioButton("Cat");
+        JRadioButton dogButton = new JRadioButton("Dog");
+        JRadioButton rabbitButton = new JRadioButton("Rabbit");
+        JRadioButton pigButton = new JRadioButton("Pig");
+
+        // Create button group
+        ButtonGroup group = new ButtonGroup();
+        group.add(birdButton);
+        group.add(catButton);
+        group.add(dogButton);
+        group.add(rabbitButton);
+        group.add(pigButton);
+
+        // Add radio buttons to panel
+        JPanel radioPanel = new JPanel();
+        radioPanel.setLayout(new GridLayout(5, 1));
+        radioPanel.add(birdButton);
+        radioPanel.add(catButton);
+        radioPanel.add(dogButton);
+        radioPanel.add(rabbitButton);
+        radioPanel.add(pigButton);
+
+        // Create pet label
+        petLabel = new JLabel("Choose a pet to display");
+
+        // Add action listener to radio buttons
+        ActionListener listener = new RadioButtonListener();
+        birdButton.addActionListener(listener);
+        catButton.addActionListener(listener);
+        dogButton.addActionListener(listener);
+        rabbitButton.addActionListener(listener);
+        pigButton.addActionListener(listener);
+
+        // Add components to frame
+        add(radioPanel, BorderLayout.WEST);
+        add(petLabel, BorderLayout.CENTER);
+        
+        setVisible(true);
+    }
+
+    // ActionListener for radio buttons
+    private class RadioButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            String petType = event.getActionCommand();
+            displayPet(petType);
+        }
+    }
+
+    // Method to display selected pet
+    private void displayPet(String petType) {
+        switch (petType) {
+            case "Bird":
+                petLabel.setText("Displaying a bird");
+                break;
+            case "Cat":
+                petLabel.setText("Displaying a cat");
+                break;
+            case "Dog":
+                petLabel.setText("Displaying a dog");
+                break;
+            case "Rabbit":
+                petLabel.setText("Displaying a rabbit");
+                break;
+            case "Pig":
+                petLabel.setText("Displaying a pig");
+                break;
+            default:
+                petLabel.setText("Choose a pet to display");
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new PetDisplayApp();
+            }
+        });
+    }
+}
